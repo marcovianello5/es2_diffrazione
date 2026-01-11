@@ -2,7 +2,7 @@
 
 #set document(title: [Esperienza di ottica ondulatoria])
 
-#let abstract = [#lorem(100)]
+#let abstract = [Si discute la validità del modello "di Malus" $I = I_0cos^2(theta)$ per l'intensità luminosa $I$ di un fascio di luce polarizzata uscente da un polarizzatore che forma un angolo $theta$ con l'asse di trasmissione.]
 
 // Configurazione del documento
 #set page(
@@ -30,14 +30,14 @@ numbering: n => { numbering("(1.1)", counter(heading).get().first(), n) }
 ) */
 
 
-#set table(
-  stroke: none,
-  gutter: 0.2em,
-  fill: (x, y) =>
-    if y == 0 or y == 1 { gray },
-  inset: (right: 1.5em),
-  align: center
-)
+// #set table(
+//   stroke: none,
+//   gutter: 0.2em,
+//   fill: (x, y) =>
+//     if y == 0 or y == 1 { gray },
+//   inset: (right: 1.5em),
+//   align: center
+// )
 // Fine configurazione del documento
 
 // Importazione dei pacchetti
@@ -101,14 +101,12 @@ numbering: n => { numbering("(1.1)", counter(heading).get().first(), n) }
 // Il documento vero e proprio
 
 = Che cosa manca
-- Secondo polarizzatore.
+- Punti 3 e 4 della dispensa fornita in laboratorio.
 
-- Tutto il resto.
-
-= Introduzione <introduzione>
-#inline-note[
-  #lorem(100)
-]
+// = Introduzione <introduzione>
+// #inline-note[
+//   #lorem(100)
+// ]
 
 = L'apparato sperimentale e la metodologia di misura <setup>
 
@@ -142,9 +140,9 @@ L'apparato (laser + camera) finora descritto è stato impiegato per valutare la 
     #image("grafici/intensita.svg")
   ] <grafico_intensità>
 
-+ La deviazione standard $s_upright(I)$ del campione è stata calcolata pari a
++ La deviazione standard $s_I$ del campione è stata calcolata pari a
   $
-    s_upright(I) = #num("1.7e5") = #num("0.017e8")
+    s_I = #num("1.7e5") = #num("0.017e8")
   $
   nelle unità arbitrarie specificate sopra.
 
@@ -156,17 +154,13 @@ Durante il processo di presa dati si è reso spesso necessario riaggiustare l'al
 
 La deviazione standard del campione di misure di intensità così ottenuto si suppone essere rappresentativa dell'incertezza su tutte le misure successive di intensità luminosa effettuate come descritto.
 
-Purtroppo, al contrario di quanto suggerito, le immagini che avrebbero dovuto permettere di fornire questa stima di incertezza sono state salvate in formato JPEG e si è quindi scelto di non utilizzarle a fini metrologici. È stato invece adottato il campione ("campione esterno") fornito da un altro gruppo. I risultati della procedura appena accennata sono dunque riportati in @grafico_allineamento_esterno2. La deviazione standard $s_(upright(I),"ext")$ del campione esterno è pari a
+Purtroppo, al contrario di quanto suggerito, le immagini che avrebbero dovuto permettere di fornire questa stima di incertezza sono state salvate in formato JPEG e si è quindi scelto di non utilizzarle a fini metrologici. È stato invece adottato il campione ("campione esterno") fornito da un altro gruppo. La deviazione standard $s_(I,"ext")$ del campione esterno è stata stimata pari a
 $
-  s_(upright(I),"ext") = #num("7.2e5") = #num("0.072e8")
+  s_(I,"ext") = #num("7.2e5") = #num("0.072e8")
 $
 unità.
 
-Il ruolo che gioca il valore di incertezza da associare all'intensità luminosa è discusso alla @analisi. Si anticipa in particolare che entrambi i valori $s_upright(I)$ e $s_(upright(I),"ext")$ sono probabilmente delle sottostime, in quanto l'analisi del $chi^2$ di alcuni fit con un modello noto (cfr. @calibrazione_p1_analisi) riportano un valore di $p$-dei-dati eccessivamente vicino allo zero.
-
-#figure(caption: [Dispersione dei valori di intensità luminosa del sistema laser + camera a seguito della procedura di perturbazione e riallineamento descritta.])[
-  #image("grafici/allineamento_esterno2.svg")
-] <grafico_allineamento_esterno2>
+Il ruolo che gioca il valore di incertezza da associare all'intensità luminosa è discusso alla @analisi. Si anticipa in particolare che entrambi i valori $s_I$ e $s_(I,"ext")$ sono probabilmente delle sottostime, in quanto l'analisi del $chi^2$ di alcuni fit con un modello noto (cfr. @calibrazione_p1_analisi) riportano un valore di $p$-dei-dati eccessivamente vicino allo zero.
 
 == Determinazione dell'asse principale di polarizzazione del fascio laser <calibrazione_p1_procedura>
 
@@ -180,12 +174,22 @@ Il primo polarizzatore è montato su un supporto goniometrico che ne permette la
   $
     f(theta; A, B, C) = A cos(theta + B)^2 + C
   $
-  a tre parametri liberi $A$, $B$ e $C$ mediante il metodo dei minimi quadrati (con i pesi tutti uguali pari all'incertezza $s_upright(I)$ determinata alla @incertezza_intensità). In questa prima fase l'incertezza $s_theta$ di lettura sui valori di angolo (che si assume pari all'incertezza di lettura pesata con il modello triangolare, $s_theta = #qty(0.2, "degree")$) è stata trascurata.
+  a tre parametri liberi $A$, $B$ e $C$ mediante il metodo dei minimi quadrati ordinario (con i pesi tutti uguali pari all'incertezza $s_I$ determinata alla @incertezza_intensità). In questa prima fase l'incertezza $s_theta$ di lettura sui valori di angolo (che si assume pari all'incertezza di lettura pesata con il modello triangolare, $s_theta = #qty(0.2, "degree")$) è stata trascurata.
   
 + È stato determinato numericamente il valore angolare $theta_0 = #qty(177.2, "degree")$ che massimizza la curva interpolante. Questo valore è stato utilizzato per azzerare la scala graduata del goniometro.
   
 L'analisi riportata fino a questo punto è stata condotta direttamente in laboratorio. A posteriori (cfr. @calibrazione_p1_analisi) _si sconsiglia_ di determinare l'angolo di massima intensità $theta_0$ come indicato qui, cfr. @calibrazione_p1_analisi. Le considerazioni della Sezione non si applicano infatti al procedimento suggerito sulla dispensa fornita in laboratorio, il quale potrebbe pertanto fornire una miglior stima dell'angolo di massima intensità $theta_0$. Va comunque tenuto conto della difficoltà pratica incontrata nella regolazione del goniometro: è realistico assumere che una differenza di $#qty("+-0.5", "degree")$ sul valore di $theta_0$ non avrebbe influito particolarmente.
-  
+
+== Verifica della legge di Malus <malus_procedura>
+
+Si è seguita la procedura riportata nella dispensa fornita in laboratorio per determinare la dipendenza dell'intensità luminosa trasmessa da un secondo polarizzatore posto a seguito del primo in funzione dell'angolo relativo di orientazione. I punti ottenuti e la curva di miglior fit ottenuta con il pacchetto `LsqFit` sono riportati in @grafico_malus. I dati sono discussi alla sezione @malus_analisi.
+
+#figure(
+  caption: [L'andamento della curva di Malus per un angolo relativo da $#qty(-30, "degree")$ a $#qty(195, "degree")$.],
+)[
+  #image("grafici/malus_residui.svg")
+] <grafico_malus>
+
 = Commento sui dati ottenuti <analisi>
 
 == Misure effettuate per determinare l'asse principale di polarizzazione del fascio laser <calibrazione_p1_analisi>
@@ -198,23 +202,56 @@ I punti sperimentali ottenuti mediante la procedura delineata alla @calibrazione
 
 Per i parametri di best-fit $hat(A)$, $hat(B)$ e $hat(C)$ si è ottenuto
 $
-  chi_"min"^2 = sum_j (I_j - f(theta_j; hat(A), hat(B), hat(C)))^2 / (s_upright(I)^2) approx #num("3e3")
+  chi_"min"^2 = sum_j (I_j - f(theta_j; hat(A), hat(B), hat(C)))^2 / (s_I^2) approx #num("3e3")
 $
 
 e un corrispondente $p$-dei-dati pari a $0$.
   
-Si sospetta che il valore $s_"I"$ di incertezza sull'intensità luminosa determinato alla @incertezza_intensità sia una _sottostima_ del valore vero. Si è pertanto optato per riportare in in @grafico_chisq_mins l'andamento della quantità $chi_"min"^2$ e del $p$-dei-dati al variare di $s_"I"$ in un intervallo arbitrariamente scelto in modo da comprendere il valore di $s_"I"$ per il quale il procedimento qui descritto avrebbe fornito un valore di $chi_"min"^2$ comparabile con il numero di gradi di libertà $nu = 8$ determinati.
+Si sospetta che il valore $s_I$ di incertezza sull'intensità luminosa determinato alla @incertezza_intensità sia una _sottostima_ del valore vero. Si è pertanto optato per riportare in in @grafico_chisq_mins l'andamento della quantità $chi_"min"^2$ e del $p$-dei-dati al variare di $s_I$ in un intervallo arbitrariamente scelto in modo da comprendere il valore di $s_I$ per il quale il procedimento qui descritto avrebbe fornito un valore di $chi_"min"^2$ comparabile con il numero di gradi di libertà $nu = 8$ determinati.
 
-#figure(caption: [Andamento dei valori di $chi_"min"^2$ e del $p$-dei-dati al variare dell'incertezza $s_"I"$ tra $#num("1e6")$ e $#num("8e6")$ unità. È evidenziata in verde la regione $nu plus.minus nu sqrt(2 nu)$, corrispondente a una deviazione standard della media $nu$ della statistica $chi^2$. Il valore di $s_upright(I)$ al punto rosso (corrispondente a $chi_"min"^2 = 8$ e $p$-dei dati pari a $0.43$) è pari a $s_"I" = #num("3.7e6")$ unità. Il valore di $s_upright(I)$ al punto arancione (corrispondente a $chi_"min"^2 = 16$ e $p$-dei dati pari a $0.04$) è pari a $s_"I" = #num("2.6e6")$ unità.])[
+#figure(caption: [Andamento dei valori di $chi_"min"^2$ e del $p$-dei-dati al variare dell'incertezza $s_I$ tra $#num("1e6")$ e $#num("8e6")$ unità. È evidenziata in verde la regione $nu plus.minus nu sqrt(2 nu)$, corrispondente a una deviazione standard della media $nu$ della statistica $chi_nu^2$. Il valore di $s_I$ al punto rosso (corrispondente a $chi_"min"^2 = 8$ e $p$-dei dati pari a $0.43$) è pari a $s_I = #num("3.7e6")$ unità. Il valore di $s_I$ al punto arancione (corrispondente a $chi_"min"^2 = 16$ e $p$-dei dati pari a $0.04$) è pari a $s_I = #num("2.6e6")$ unità.])[
   #image("grafici/chisq_mins.svg")
 ] <grafico_chisq_mins>
 
-I valori $s_upright(I) = #num("1.7e5")$ e $s_(upright(I),"ext") = #num("7.2e5")$ di incertezza dichiarati alla sezione @incertezza_intensità _non_ rientrano nella soglia $s_"I" > #num("2.6e6")$ entro la quale il presente fit non porta evidenza statistica sufficiente per rifiutare al $5%$ di significatività il modello parametrico proposto. Si è dunque ritenuto opportuno ripetere il fit con il modello di Malus tenendo conto dell'incertezza $s_theta = #qty("0.2", "degree")$ sulla variabile angolare. Si è dunque utilizzato il pacchetto `Odrpack.jl` di Julia per ripetere la stima dei parametri di miglior fit con Orthogonal Distance Regression prendendo come pesi il valore $1/s_theta^2$ e $1/s_(upright(I),"ext")^2$ rispettivamente per la variabile indipendente e per la variabile dipendente. Un grafico come quello di @grafico_chisq_mins è riportato in #inline-note()[Boh].
+I valori $s_I = #num("1.7e5")$ e $s_(I,"ext") = #num("7.2e5")$ di incertezza dichiarati alla sezione @incertezza_intensità _non_ rientrano nella soglia $s_I > #num("2.6e6")$ entro la quale il presente fit non porta evidenza statistica sufficiente per rifiutare al $5%$ di significatività il modello parametrico proposto.
 
-#inline-note()[Roba]
+Il fit con il modello di Malus è stato ripetuto tenendo conto dell'incertezza $s_theta = #qty("0.2", "degree")$ sulla variabile angolare. Si è cioè utilizzato il pacchetto `Odrpack.jl` per il linguaggio di programmazione Julia per ripetere la stima dei parametri di miglior fit con _Orthogonal Distance Regression_ prendendo come pesi i valori $1/s_theta^2$ e $1/s_I^2$ oppure $1/s_(I,"ext")^2$ rispettivamente per la variabile indipendente e per la variabile dipendente. Le quantità#footnote[Nonostante la notazione fuorviante, _non_ si assume che le quantità $chi_"min"^2$ determinate con ODR siano distribuite come una variabile $chi_nu^2$ (viene a mancare l'ipotesi di linearità del modello di Malus sul coefficiente di correzione angolare).]
+$
+  chi_"min"^2 = sum_j {hat(delta_j)^2/s_theta^2 +  (I_j - f(theta_j - hat(delta_j); hat(A), hat(B), hat(C)))^2 / s_I^2}
+$
+sono state calcolate per i parametri di best-fit $hat(A)$, $hat(B)$ e $hat(C)$ e per i valori ottimali di scarto $hat(delta_j)$ sulla coordinata angolare, e i risultati dell'analisi sono riportati in @tabella_chisq-min_ols_odr.
 
+#show table.cell.where(y: 0): strong
+#set table(
+  stroke: (x, y) => {
+    if (y == 0 or y == 2) {(bottom: 0.7pt + black)}
+    if (x == 1) {(left: 0.7pt)}
+  },
+  align: center
+  )
 
+#figure(
+  caption: [Valori di $chi_"min"^2$ corrispondenti ai valori di incertezza $s_I = #num("1.7e5")$ e $s_(I,"ext") = #num("7.2e5")$ unità sull'intensità del laser in funzione del metodo di regressione adottato ("OLS" per il metodo dei minimi quadrati ordinario e "ODR" per _Orthogonal Distance Regression_).]
+)[
+  #table(
+    columns: 3,
+    table.header([], [OLS], [ODR]),
+    [$s_I$], [$#num("3.9e3")$], [$#num("0.56e3")$],
+    [$s_(I,"ext")$], [$#num("0.21e3")$], [$#num("0.15e3")$],
+  )
+] <tabella_chisq-min_ols_odr>
 
-= Dati, codice e disegni tecnici <repo>
+In @grafico_chisq_mins_ols_vs_odr sono stati confrontati gli andamenti delle quantità $chi_"min"^2$ determinate con OLS e ODR in un range di incertezze sul valore di intensità del laser tale da comprendere entrambi i valori $s_I = #num("1.7e5")$ e $s_(I,"ext") = #num("7.2e5")$ unità determinati alla @incertezza_intensità.
+
+#figure(caption: [Andamento dei valori di $chi_"min"^2$ calcolato al variare dell'incertezza $s_I$ tra $#num("1e6")$ e $#num("8e6")$ unità (linee tratteggiate) per fit a minimi quadrati pesati ordinari ("OLS") e con _Orthogonal Distance Regression_ ("ODR").])[
+  #image("grafici/chisq_mins_ols_vs_odr.svg")
+] <grafico_chisq_mins_ols_vs_odr>
+
+I valori della @tabella_chisq-min_ols_odr escono dalle quattro deviazioni standard della media $nu = 8$ di una distribuzione $chi_nu^2$ a $8$ gradi di libertà. Ci si chiede d'altro canto se abbia senso un confronto del genere, o se sia opportuno cercare di determinare perlomeno la distribuzione delle quantità $chi_"min"^2$ calcolate con ODR (con il metodo di Monte Carlo, ad esempio). Non è stato risposto a queste domande nella presente relazione.
+
+= Misure effettuate per verificare la dipendenza dell'intensità luminosa in funzione dell'angolo <malus_analisi>
+Le analisi della sezione precedente sono state riproposte per i dati acquisiti con la procedura descritta alla @malus_procedura. Le stime di incertezza fornite alla @incertezza_intensità risultano in valori di $chi_"min"^2$ ottimali dell'ordine di $10^8$ per OLS e $10^6$ per ODR. Allo stato attuale, le competenze dell'autore di questa relazione non permettono di trarre alcuna conclusione significativa da queste analisi, perlomeno in tempi brevi.
+
+= Dati e codice <repo>
 
 Il materiale di supporto alla relazione è archiviato in una repository al link #link("https://www.github.com/marcovianello5/es2_diffrazione").
